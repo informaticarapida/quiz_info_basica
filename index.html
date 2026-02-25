@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso de Informática - Avaliações</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    color:white;
+}
+
+.container{
+    text-align:center;
+    background:rgba(255,255,255,0.08);
+    padding:40px;
+    border-radius:20px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    width:90%;
+    max-width:600px;
+}
+
+h1{
+    margin-bottom:10px;
+    font-size:28px;
+}
+
+p{
+    margin-bottom:30px;
+    opacity:0.9;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+a{
+    text-decoration:none;
+}
+
+.button{
+    padding:15px;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.quiz1{
+    background:#1d2671;
+    color:white;
+}
+
+.quiz1:hover{
+    background:#141b4f;
+}
+
+.quiz2{
+    background:#c33764;
+    color:white;
+}
+
+.quiz2:hover{
+    background:#96294b;
+}
+
+.footer{
+    margin-top:25px;
+    font-size:14px;
+    opacity:0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Curso de Informática Básica</h1>
+    <p>Escolha a avaliação que deseja realizar:</p>
+
+    <div class="menu">
+        <a href="https://informaticarapida.github.io/quiz_info_basica/introducao_informatica/index.html">
+            <div class="button quiz1">📘 Quiz - História do Computador</div>
+        </a>
+
+        <a href="https://informaticarapida.github.io/quiz_info_basica/hardware_software/index.html">
+            <div class="button quiz2">💻 Quiz - Hardware x Software</div>
+        </a>
+    </div>
+
+    <div class="footer">
+        Desenvolvido para avaliação dos alunos
+    </div>
+</div>
+
+</body>
+</html>
