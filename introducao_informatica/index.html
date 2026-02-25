@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz - Introdução à Informática</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.quiz-container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submitBtn {
+    background: #007bff;
+    color: white;
+}
+
+#retryBtn {
+    background: #28a745;
+    color: white;
+    margin-top: 20px;
+    display: none;
+}
+
+.result {
+    margin-top: 20px;
+    font-weight: bold;
+}
+.wrong {
+    color: red;
+}
+.correct {
+    color: green;
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-container">
+<h1>Quiz - História do Computador</h1>
+<form id="quizForm"></form>
+
+<button id="submitBtn">Corrigir</button>
+
+<div class="result" id="result"></div>
+<button id="retryBtn">Tentar Novamente</button>
+</div>
+
+<script>
+
+const questions = [
+
+{
+question: "A palavra 'computador' vem do verbo:",
+options: ["Digitar", "Computar", "Processar", "Informar"],
+answer: 1,
+tip: "Computador vem de 'computar', que significa calcular."
+},
+
+{
+question: "Stonehenge ficou conhecido como:",
+options: ["Primeira máquina elétrica", "Primeiro computador da história", "Primeiro microprocessador", "Primeiro software"],
+answer: 1,
+tip: "Ele era usado para prever eclipses."
+},
+
+{
+question: "Antes da escrita, o homem contava usando:",
+options: ["Madeira", "Papel", "Pedras", "Metal"],
+answer: 2,
+tip: "Da palavra latina 'calculi' surgiram os cálculos."
+},
+
+{
+question: "O Ábaco surgiu aproximadamente:",
+options: ["Século V a.C.", "Século XV", "Ano 1900", "Ano 2000"],
+answer: 0,
+tip: "É um instrumento muito antigo, de origem chinesa."
+},
+
+{
+question: "Charles Babbage é conhecido como:",
+options: ["Pai da Internet", "Pai da Informática", "Criador do Windows", "Criador do ENIAC"],
+answer: 1,
+tip: "Ele projetou a Máquina Analítica."
+},
+
+{
+question: "A Máquina Analítica possuía:",
+options: ["Tela Touch", "Wi-Fi", "Memória e unidade de controle", "Sistema Operacional Windows"],
+answer: 2,
+tip: "Ela já tinha conceitos de memória e controle."
+},
+
+{
+question: "Quem desenvolveu a ideia de programa interno?",
+options: ["Babbage", "Bill Gates", "John Von Neumann", "Alan Turing"],
+answer: 2,
+tip: "Ele criou a arquitetura usada até hoje."
+},
+
+{
+question: "A Primeira Geração usava:",
+options: ["Transistores", "Circuitos integrados", "Válvulas eletrônicas", "Microprocessadores"],
+answer: 2,
+tip: "Eram grandes, esquentavam muito e consumiam muita energia."
+},
+
+{
+question: "O ENIAC pesava aproximadamente:",
+options: ["30 kg", "300 kg", "3 toneladas", "30 toneladas"],
+answer: 3,
+tip: "Era extremamente pesado e ocupava grande espaço."
+},
+
+{
+question: "A Segunda Geração substituiu válvulas por:",
+options: ["Chips", "Transistores", "Microprocessadores", "Cabos ópticos"],
+answer: 1,
+tip: "Eles tornaram os computadores menores e mais confiáveis."
+},
+
+{
+question: "A Terceira Geração utilizava:",
+options: ["Transistores simples", "Circuitos integrados", "Válvulas", "Disquetes"],
+answer: 1,
+tip: "Milhares de transistores em um único chip."
+},
+
+{
+question: "A Quarta Geração é marcada pelo uso de:",
+options: ["Cartões perfurados", "Válvulas", "Microprocessadores", "Pedras"],
+answer: 2,
+tip: "O microprocessador é considerado o cérebro do computador."
+},
+
+{
+question: "Entrada de dados significa:",
+options: ["Resultado final", "Inserção de informações", "Impressão", "Armazenamento"],
+answer: 1,
+tip: "É o momento em que dados são inseridos no computador."
+},
+
+{
+question: "Processamento é:",
+options: ["Organizar dados manualmente", "Executar instruções sobre dados", "Excluir arquivos", "Formatar HD"],
+answer: 1,
+tip: "É quando o computador trabalha os dados."
+},
+
+{
+question: "Saída de dados é:",
+options: ["Inserção", "Armazenamento", "Resultado do processamento", "Backup"],
+answer: 2,
+tip: "É o que o computador devolve após processar."
+},
+
+{
+question: "Dado é:",
+options: ["Informação organizada", "Algo sem significado isolado", "Uma conclusão", "Um relatório"],
+answer: 1,
+tip: "Sozinho ele não gera compreensão."
+},
+
+{
+question: "Informação é:",
+options: ["Dado isolado", "Dado organizado com significado", "Arquivo vazio", "Sistema operacional"],
+answer: 1,
+tip: "Surge quando organizamos os dados."
+},
+
+{
+question: "A palavra Informática vem do francês:",
+options: ["Informatique", "Information Tech", "Informatic", "Automation"],
+answer: 0,
+tip: "União de informação + automática."
+},
+
+{
+question: "Na Terceira Geração surgiu:",
+options: ["Internet", "Computadores pessoais", "Stonehenge", "QR Code"],
+answer: 1,
+tip: "Começou a popularização dos PCs."
+},
+
+{
+question: "Os microprocessadores integram:",
+options: ["Centenas de pessoas", "Milhões de transistores", "Pedras", "Cabos"],
+answer: 1,
+tip: "Eles concentram milhões em um único chip."
+}
+
+];
+
+const quizForm = document.getElementById("quizForm");
+const resultDiv = document.getElementById("result");
+const retryBtn = document.getElementById("retryBtn");
+
+questions.forEach((q, index) => {
+    const div = document.createElement("div");
+    div.classList.add("question");
+    div.innerHTML = `<p><strong>${index + 1}. ${q.question}</strong></p>` +
+        q.options.map((opt, i) =>
+            `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label><br>`
+        ).join("");
+    quizForm.appendChild(div);
+});
+
+document.getElementById("submitBtn").addEventListener("click", function() {
+
+    let score = 0;
+    let feedback = "";
+
+    questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected) {
+            if (parseInt(selected.value) === q.answer) {
+                score++;
+            } else {
+                feedback += `<p class="wrong">Questão ${index + 1}: ${q.tip}</p>`;
+            }
+        } else {
+            feedback += `<p class="wrong">Questão ${index + 1}: Não respondida. ${q.tip}</p>`;
+        }
+    });
+
+    resultDiv.innerHTML = `<p class="correct">Você acertou ${score} de ${questions.length} questões.</p>` + feedback;
+    retryBtn.style.display = "block";
+});
+
+retryBtn.addEventListener("click", function() {
+    location.reload();
+});
+
+</script>
+
+</body>
+</html>
