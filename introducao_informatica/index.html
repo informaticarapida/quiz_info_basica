@@ -3,28 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz - Hardware x Software</title>
+<title>Quiz - História do Computador</title>
 
 <style>
 body{
     font-family:'Segoe UI',sans-serif;
-    background:linear-gradient(135deg,#0f2027,#2c5364);
     margin:0;
+    background:linear-gradient(135deg,#1d2671,#c33764);
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
 }
-
 .container{
-    background:white;
-    width:90%;
-    max-width:600px;
-    padding:30px;
+    background:#fff;
+    width:95%;
+    max-width:700px;
+    padding:25px;
     border-radius:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
 }
-
+h2{margin-bottom:15px;}
 .option{
     display:block;
     padding:10px;
@@ -32,117 +31,117 @@ body{
     border-radius:8px;
     border:1px solid #ccc;
     cursor:pointer;
+    transition:.3s;
 }
-
+.option:hover{background:#f2f2f2;}
 button{
-    margin-top:20px;
+    margin-top:15px;
     padding:10px 20px;
     border:none;
     border-radius:8px;
-    background:#2c5364;
-    color:white;
+    background:#1d2671;
+    color:#fff;
     font-size:16px;
     cursor:pointer;
 }
-
-button:hover{
-    background:#1c3b4a;
+.progress{
+    height:8px;
+    background:#ddd;
+    border-radius:5px;
+    margin-bottom:15px;
 }
-
+.progress-bar{
+    height:8px;
+    background:#c33764;
+    width:0%;
+    border-radius:5px;
+}
 .correct{color:green;}
 .wrong{color:red;}
+.result{
+    max-height:400px;
+    overflow:auto;
+}
 </style>
 </head>
 <body>
 
-<div class="container" id="quizContainer">
-    <h2 id="question"></h2>
-    <div id="options"></div>
-    <button onclick="nextQuestion()">Avançar</button>
+<div class="container" id="quizBox">
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<h2 id="question"></h2>
+<div id="options"></div>
+<button onclick="next()">Avançar</button>
 </div>
 
 <script>
 
 const questions=[
-{
-q:"Hardware é:",
-o:["Programa","Equipamento físico","Aplicativo","Sistema"],
-a:1,
-tip:"Hardware é tudo que pode ser tocado."
-},
-{
-q:"Software é:",
-o:["Peça física","Programa","Memória","Placa"],
-a:1,
-tip:"Software são instruções que controlam o hardware."
-},
-{
-q:"A CPU é conhecida como:",
-o:["Memória","Cérebro do computador","HD","Monitor"],
-a:1,
-tip:"Ela executa instruções e cálculos."
-},
-{
-q:"RAM é:",
-o:["Memória temporária","Memória permanente","HD","ROM"],
-a:0,
-tip:"Se desligar, perde os dados."
-},
-{
-q:"Sistema Operacional é um:",
-o:["Hardware","Software básico","Periférico","Memória"],
-a:1,
-tip:"Windows e Linux são exemplos."
-}
+// 20 perguntas baseadas no seu PPT
+{q:"A palavra computador vem do verbo:",o:["Processar","Computar","Digitar","Salvar"],a:1,tip:"Computar significa calcular."},
+{q:"Stonehenge foi usado para:",o:["Criar jogos","Prever eclipses","Guardar dados","Escrever livros"],a:1,tip:"Era usado para prever eclipses lunares."},
+{q:"Antes da escrita o homem usava:",o:["Metal","Pedras","Papel","Madeira"],a:1,tip:"Pedras deram origem à palavra cálculo."},
+{q:"O Ábaco surgiu no:",o:["Século V a.C.","Ano 2000","Século XIX","1950"],a:0,tip:"Instrumento de origem chinesa."},
+{q:"Charles Babbage projetou:",o:["ENIAC","Máquina Analítica","Windows","Internet"],a:1,tip:"Ela antecipou conceitos modernos."},
+{q:"Babbage é chamado de:",o:["Pai da Internet","Pai da Informática","Pai do Windows","Criador do Linux"],a:1,tip:"Por suas ideias pioneiras."},
+{q:"John Von Neumann criou:",o:["Sistema Linux","Arquitetura de programa interno","Microchip","Ábaco"],a:1,tip:"Programa e dados na mesma memória."},
+{q:"Primeira geração usava:",o:["Microprocessadores","Transistores","Válvulas eletrônicas","Chips"],a:2,tip:"Eram enormes e esquentavam."},
+{q:"ENIAC pesava cerca de:",o:["30kg","300kg","3 toneladas","30 toneladas"],a:3,tip:"Era gigantesco."},
+{q:"Segunda geração utilizava:",o:["Transistores","Chips modernos","SSD","Pedras"],a:0,tip:"Substituiu as válvulas."},
+{q:"Terceira geração utilizava:",o:["Circuitos integrados","Válvulas","Cartões","Cabos ópticos"],a:0,tip:"Milhares de transistores num chip."},
+{q:"Quarta geração utiliza:",o:["Cartões","Microprocessadores","Pedras","Transistores simples"],a:1,tip:"Integra milhões de transistores."},
+{q:"Entrada de dados significa:",o:["Resultado","Inserção de informações","Backup","Impressão"],a:1,tip:"É o início do processamento."},
+{q:"Processamento é:",o:["Executar instruções","Imprimir","Desligar","Formatar"],a:0,tip:"Quando o computador trabalha os dados."},
+{q:"Saída de dados é:",o:["Inserção","Resultado do processamento","Armazenamento","Formatação"],a:1,tip:"É o retorno do processamento."},
+{q:"Dado é:",o:["Informação organizada","Elemento isolado sem significado","Relatório","Conclusão"],a:1,tip:"Sozinho não gera compreensão."},
+{q:"Informação é:",o:["Dado organizado","Arquivo vazio","Sistema","Hardware"],a:0,tip:"Organização com significado."},
+{q:"Informática vem do francês:",o:["Information","Informatique","Informatic","Automation"],a:1,tip:"União de informação + automática."},
+{q:"A Terceira geração marcou:",o:["Popularização dos PCs","Criação da internet","Stonehenge","QR Code"],a:0,tip:"Computadores pessoais surgiram."},
+{q:"Microprocessadores são considerados:",o:["Memória","Cérebro do computador","Periférico","Software"],a:1,tip:"Realizam cálculos e decisões."}
 ];
 
 let current=0;
 let answers=[];
 
-function loadQuestion(){
+function load(){
     document.getElementById("question").innerText=(current+1)+". "+questions[current].q;
-    const optionsDiv=document.getElementById("options");
-    optionsDiv.innerHTML="";
-    questions[current].o.forEach((opt,index)=>{
-        optionsDiv.innerHTML+=`
-        <label class="option">
-            <input type="radio" name="option" value="${index}">
-            ${opt}
-        </label>`;
+    const opt=document.getElementById("options");
+    opt.innerHTML="";
+    questions[current].o.forEach((op,i)=>{
+        opt.innerHTML+=`<label class="option"><input type="radio" name="op" value="${i}"> ${op}</label>`;
     });
+    document.getElementById("progressBar").style.width=((current)/questions.length)*100+"%";
 }
 
-function nextQuestion(){
-    const selected=document.querySelector('input[name="option"]:checked');
+function next(){
+    const selected=document.querySelector('input[name="op"]:checked');
     if(!selected){alert("Selecione uma opção.");return;}
     answers[current]=parseInt(selected.value);
     current++;
     if(current<questions.length){
-        loadQuestion();
+        load();
     }else{
-        showResults();
+        showResult();
     }
 }
 
-function showResults(){
+function showResult(){
     let score=0;
-    let resultHTML="<h2>Resultado Final</h2>";
+    let html="<h2>Resultado Final</h2><div class='result'>";
     questions.forEach((q,i)=>{
         if(answers[i]===q.a){
             score++;
-            resultHTML+=`<p class="correct">${i+1}) Correto ✔</p>`;
+            html+=`<p class='correct'><b>${i+1}) ${q.q}</b><br>Correta ✔</p>`;
         }else{
-            resultHTML+=`<p class="wrong">${i+1}) Errado ❌<br>
-            Correta: ${q.o[q.a]}<br>
-            Dica: ${q.tip}</p>`;
+            html+=`<p class='wrong'><b>${i+1}) ${q.q}</b><br>Sua resposta: ${q.o[answers[i]]}<br>Correta: ${q.o[q.a]}<br>Dica: ${q.tip}</p>`;
         }
     });
-    resultHTML+=`<h3>Você acertou ${score} de ${questions.length}</h3>`;
-    resultHTML+=`<button onclick="location.reload()">Tentar novamente</button>`;
-    document.getElementById("quizContainer").innerHTML=resultHTML;
+    let nota=((score/questions.length)*10).toFixed(1);
+    html+=`</div><h3>Acertos: ${score}/20</h3><h3>Nota: ${nota}</h3>`;
+    html+=`<button onclick="location.reload()">Tentar novamente</button>`;
+    document.getElementById("quizBox").innerHTML=html;
 }
 
-loadQuestion();
+load();
 
 </script>
 </body>
