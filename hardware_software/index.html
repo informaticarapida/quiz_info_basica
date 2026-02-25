@@ -70,7 +70,12 @@ button{
 <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
 <h2 id="question"></h2>
 <div id="options"></div>
-<button onclick="next()">Avançar</button>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <button onclick="next()">Avançar</button>
+    <button onclick="window.location.href='../index.html'" style="background:#444;">
+        ⬅ Menu Principal
+    </button>
+</div>
 </div>
 
 <script>
