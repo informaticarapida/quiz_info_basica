@@ -3,265 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz - Introdução à Informática</title>
+<title>Quiz - História do Computador</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    margin: 0;
-    padding: 20px;
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#1f3c88,#39a2db);
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
 }
 
-h1 {
-    text-align: center;
+.container{
+    background:#fff;
+    width:90%;
+    max-width:600px;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
-.quiz-container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+h2{
+    margin-bottom:20px;
 }
 
-.question {
-    margin-bottom: 20px;
+.option{
+    display:block;
+    padding:10px;
+    margin:8px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.option:hover{
+    background:#f1f1f1;
 }
 
-#submitBtn {
-    background: #007bff;
-    color: white;
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background:#1f3c88;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
 }
 
-#retryBtn {
-    background: #28a745;
-    color: white;
-    margin-top: 20px;
-    display: none;
+button:hover{
+    background:#162d63;
 }
 
-.result {
-    margin-top: 20px;
-    font-weight: bold;
+.result{
+    max-height:400px;
+    overflow:auto;
 }
-.wrong {
-    color: red;
-}
-.correct {
-    color: green;
-}
+
+.correct{color:green;}
+.wrong{color:red;}
 </style>
 </head>
-
 <body>
 
-<div class="quiz-container">
-<h1>Quiz - História do Computador</h1>
-<form id="quizForm"></form>
-
-<button id="submitBtn">Corrigir</button>
-
-<div class="result" id="result"></div>
-<button id="retryBtn">Tentar Novamente</button>
+<div class="container" id="quizContainer">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Avançar</button>
 </div>
 
 <script>
 
 const questions = [
-
 {
-question: "A palavra 'computador' vem do verbo:",
-options: ["Digitar", "Computar", "Processar", "Informar"],
-answer: 1,
-tip: "Computador vem de 'computar', que significa calcular."
+q:"Quem é considerado o pai da informática?",
+o:["Bill Gates","Charles Babbage","Alan Turing","Steve Jobs"],
+a:1,
+tip:"Charles Babbage projetou a Máquina Analítica."
 },
-
 {
-question: "Stonehenge ficou conhecido como:",
-options: ["Primeira máquina elétrica", "Primeiro computador da história", "Primeiro microprocessador", "Primeiro software"],
-answer: 1,
-tip: "Ele era usado para prever eclipses."
+q:"A Primeira Geração utilizava:",
+o:["Transistores","Válvulas eletrônicas","Microprocessadores","Chips modernos"],
+a:1,
+tip:"Eram enormes e esquentavam muito."
 },
-
 {
-question: "Antes da escrita, o homem contava usando:",
-options: ["Madeira", "Papel", "Pedras", "Metal"],
-answer: 2,
-tip: "Da palavra latina 'calculi' surgiram os cálculos."
+q:"A Segunda Geração utilizava:",
+o:["Circuitos integrados","Transistores","Válvulas","Pedras"],
+a:1,
+tip:"Substituíram as válvulas eletrônicas."
 },
-
 {
-question: "O Ábaco surgiu aproximadamente:",
-options: ["Século V a.C.", "Século XV", "Ano 1900", "Ano 2000"],
-answer: 0,
-tip: "É um instrumento muito antigo, de origem chinesa."
+q:"A Terceira Geração utilizava:",
+o:["Circuitos integrados","Transistores simples","Microprocessadores","Cartões"],
+a:0,
+tip:"Milhares de transistores em um único chip."
 },
-
 {
-question: "Charles Babbage é conhecido como:",
-options: ["Pai da Internet", "Pai da Informática", "Criador do Windows", "Criador do ENIAC"],
-answer: 1,
-tip: "Ele projetou a Máquina Analítica."
-},
-
-{
-question: "A Máquina Analítica possuía:",
-options: ["Tela Touch", "Wi-Fi", "Memória e unidade de controle", "Sistema Operacional Windows"],
-answer: 2,
-tip: "Ela já tinha conceitos de memória e controle."
-},
-
-{
-question: "Quem desenvolveu a ideia de programa interno?",
-options: ["Babbage", "Bill Gates", "John Von Neumann", "Alan Turing"],
-answer: 2,
-tip: "Ele criou a arquitetura usada até hoje."
-},
-
-{
-question: "A Primeira Geração usava:",
-options: ["Transistores", "Circuitos integrados", "Válvulas eletrônicas", "Microprocessadores"],
-answer: 2,
-tip: "Eram grandes, esquentavam muito e consumiam muita energia."
-},
-
-{
-question: "O ENIAC pesava aproximadamente:",
-options: ["30 kg", "300 kg", "3 toneladas", "30 toneladas"],
-answer: 3,
-tip: "Era extremamente pesado e ocupava grande espaço."
-},
-
-{
-question: "A Segunda Geração substituiu válvulas por:",
-options: ["Chips", "Transistores", "Microprocessadores", "Cabos ópticos"],
-answer: 1,
-tip: "Eles tornaram os computadores menores e mais confiáveis."
-},
-
-{
-question: "A Terceira Geração utilizava:",
-options: ["Transistores simples", "Circuitos integrados", "Válvulas", "Disquetes"],
-answer: 1,
-tip: "Milhares de transistores em um único chip."
-},
-
-{
-question: "A Quarta Geração é marcada pelo uso de:",
-options: ["Cartões perfurados", "Válvulas", "Microprocessadores", "Pedras"],
-answer: 2,
-tip: "O microprocessador é considerado o cérebro do computador."
-},
-
-{
-question: "Entrada de dados significa:",
-options: ["Resultado final", "Inserção de informações", "Impressão", "Armazenamento"],
-answer: 1,
-tip: "É o momento em que dados são inseridos no computador."
-},
-
-{
-question: "Processamento é:",
-options: ["Organizar dados manualmente", "Executar instruções sobre dados", "Excluir arquivos", "Formatar HD"],
-answer: 1,
-tip: "É quando o computador trabalha os dados."
-},
-
-{
-question: "Saída de dados é:",
-options: ["Inserção", "Armazenamento", "Resultado do processamento", "Backup"],
-answer: 2,
-tip: "É o que o computador devolve após processar."
-},
-
-{
-question: "Dado é:",
-options: ["Informação organizada", "Algo sem significado isolado", "Uma conclusão", "Um relatório"],
-answer: 1,
-tip: "Sozinho ele não gera compreensão."
-},
-
-{
-question: "Informação é:",
-options: ["Dado isolado", "Dado organizado com significado", "Arquivo vazio", "Sistema operacional"],
-answer: 1,
-tip: "Surge quando organizamos os dados."
-},
-
-{
-question: "A palavra Informática vem do francês:",
-options: ["Informatique", "Information Tech", "Informatic", "Automation"],
-answer: 0,
-tip: "União de informação + automática."
-},
-
-{
-question: "Na Terceira Geração surgiu:",
-options: ["Internet", "Computadores pessoais", "Stonehenge", "QR Code"],
-answer: 1,
-tip: "Começou a popularização dos PCs."
-},
-
-{
-question: "Os microprocessadores integram:",
-options: ["Centenas de pessoas", "Milhões de transistores", "Pedras", "Cabos"],
-answer: 1,
-tip: "Eles concentram milhões em um único chip."
+q:"A Quarta Geração é marcada por:",
+o:["Pedras","Microprocessadores","Cartões perfurados","Válvulas"],
+a:1,
+tip:"Microprocessador é o cérebro do computador."
 }
-
 ];
 
-const quizForm = document.getElementById("quizForm");
-const resultDiv = document.getElementById("result");
-const retryBtn = document.getElementById("retryBtn");
+let current=0;
+let answers=[];
 
-questions.forEach((q, index) => {
-    const div = document.createElement("div");
-    div.classList.add("question");
-    div.innerHTML = `<p><strong>${index + 1}. ${q.question}</strong></p>` +
-        q.options.map((opt, i) =>
-            `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label><br>`
-        ).join("");
-    quizForm.appendChild(div);
-});
+function loadQuestion(){
+    document.getElementById("question").innerText=(current+1)+". "+questions[current].q;
+    const optionsDiv=document.getElementById("options");
+    optionsDiv.innerHTML="";
+    questions[current].o.forEach((opt,index)=>{
+        optionsDiv.innerHTML+=`
+        <label class="option">
+            <input type="radio" name="option" value="${index}">
+            ${opt}
+        </label>`;
+    });
+}
 
-document.getElementById("submitBtn").addEventListener("click", function() {
+function nextQuestion(){
+    const selected=document.querySelector('input[name="option"]:checked');
+    if(!selected){alert("Selecione uma opção.");return;}
+    answers[current]=parseInt(selected.value);
+    current++;
+    if(current<questions.length){
+        loadQuestion();
+    }else{
+        showResults();
+    }
+}
 
-    let score = 0;
-    let feedback = "";
-
-    questions.forEach((q, index) => {
-        const selected = document.querySelector(`input[name="q${index}"]:checked`);
-        if (selected) {
-            if (parseInt(selected.value) === q.answer) {
-                score++;
-            } else {
-                feedback += `<p class="wrong">Questão ${index + 1}: ${q.tip}</p>`;
-            }
-        } else {
-            feedback += `<p class="wrong">Questão ${index + 1}: Não respondida. ${q.tip}</p>`;
+function showResults(){
+    let score=0;
+    let resultHTML="<h2>Resultado Final</h2>";
+    questions.forEach((q,i)=>{
+        const correct=q.a;
+        const user=answers[i];
+        if(user===correct){
+            score++;
+            resultHTML+=`<p class="correct">${i+1}) Correto ✔</p>`;
+        }else{
+            resultHTML+=`<p class="wrong">${i+1}) Errado ❌<br>
+            Sua resposta: ${q.o[user]}<br>
+            Correta: ${q.o[correct]}<br>
+            Dica: ${q.tip}</p>`;
         }
     });
+    resultHTML+=`<h3>Você acertou ${score} de ${questions.length}</h3>`;
+    resultHTML+=`<button onclick="location.reload()">Tentar novamente</button>`;
+    document.getElementById("quizContainer").innerHTML=resultHTML;
+}
 
-    resultDiv.innerHTML = `<p class="correct">Você acertou ${score} de ${questions.length} questões.</p>` + feedback;
-    retryBtn.style.display = "block";
-});
-
-retryBtn.addEventListener("click", function() {
-    location.reload();
-});
+loadQuestion();
 
 </script>
-
 </body>
 </html>
