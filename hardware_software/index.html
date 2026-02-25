@@ -6,264 +6,163 @@
 <title>Quiz - Hardware x Software</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f2f4f8;
-    margin: 0;
-    padding: 20px;
+body{
+    font-family:'Segoe UI',sans-serif;
+    margin:0;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
 }
-
-h1 {
-    text-align: center;
+.container{
+    background:#fff;
+    width:95%;
+    max-width:750px;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.35);
 }
-
-.quiz-container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+h2{margin-bottom:15px;}
+.option{
+    display:block;
+    padding:10px;
+    margin:8px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    cursor:pointer;
+    transition:.3s;
 }
-
-.question {
-    margin-bottom: 20px;
+.option:hover{background:#f2f2f2;}
+button{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background:#203a43;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
 }
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.progress{
+    height:8px;
+    background:#ddd;
+    border-radius:5px;
+    margin-bottom:15px;
 }
-
-#submitBtn {
-    background: #007bff;
-    color: white;
+.progress-bar{
+    height:8px;
+    background:#2c5364;
+    width:0%;
+    border-radius:5px;
 }
-
-#retryBtn {
-    background: #28a745;
-    color: white;
-    margin-top: 20px;
-    display: none;
-}
-
-.result {
-    margin-top: 20px;
-    font-weight: bold;
-}
-
-.wrong {
-    color: red;
-}
-
-.correct {
-    color: green;
+.correct{color:green;}
+.wrong{color:red;}
+.result{
+    max-height:420px;
+    overflow:auto;
 }
 </style>
 </head>
-
 <body>
 
-<div class="quiz-container">
-<h1>Quiz - Hardware x Software</h1>
-<form id="quizForm"></form>
-
-<button id="submitBtn">Corrigir</button>
-
-<div class="result" id="result"></div>
-<button id="retryBtn">Tentar Novamente</button>
+<div class="container" id="quizBox">
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<h2 id="question"></h2>
+<div id="options"></div>
+<button onclick="next()">Avançar</button>
 </div>
 
 <script>
 
-const questions = [
+const questions=[
 
-{
-question: "Os chips são responsáveis principalmente por:",
-options: ["Limpar o computador", "Executar operações e instruções", "Imprimir documentos", "Armazenar papel"],
-answer: 1,
-tip: "Eles executam cálculos, controlam componentes e processam instruções."
-},
+{q:"Hardware é:",o:["Programa","Equipamento físico","Sistema operacional","Aplicativo"],a:1,tip:"Hardware é tudo que pode ser tocado fisicamente."},
 
-{
-question: "Os programas são:",
-options: ["Peças físicas do computador", "Conjuntos de instruções", "Cabos internos", "Placas eletrônicas"],
-answer: 1,
-tip: "Programas são instruções organizadas que dizem ao computador o que fazer."
-},
+{q:"Software é:",o:["Peça física","Programa","Memória","Processador"],a:1,tip:"Software são instruções que controlam o hardware."},
 
-{
-question: "Hardware é:",
-options: ["Sistema operacional", "Equipamento físico do computador", "Aplicativo", "Código"],
-answer: 1,
-tip: "Hardware é tudo aquilo que você pode tocar fisicamente."
-},
+{q:"A placa mãe é responsável por:",o:["Imprimir documentos","Conectar componentes","Executar jogos","Guardar vírus"],a:1,tip:"Ela conecta e coordena todos os componentes internos."},
 
-{
-question: "Software é:",
-options: ["Peça física", "Dispositivo externo", "Conjunto de instruções", "Monitor"],
-answer: 2,
-tip: "Software são os programas que controlam o hardware."
-},
+{q:"A CPU é conhecida como:",o:["HD","Cérebro do computador","Memória externa","Periférico"],a:1,tip:"Ela executa instruções e cálculos."},
 
-{
-question: "A placa mãe tem como função:",
-options: ["Imprimir documentos", "Conectar e coordenar componentes", "Criar programas", "Armazenar vírus"],
-answer: 1,
-tip: "Ela conecta processador, memória e demais componentes."
-},
+{q:"A Unidade de Controle (UC) faz:",o:["Armazena fotos","Coordena tarefas","Imprime textos","Guarda vírus"],a:1,tip:"Ela interpreta e coordena instruções."},
 
-{
-question: "A CPU é conhecida como:",
-options: ["Memória secundária", "Periférico", "Cérebro do computador", "Programa básico"],
-answer: 2,
-tip: "Ela executa as instruções e controla o sistema."
-},
+{q:"A ULA executa:",o:["Cópias de arquivos","Operações lógicas e matemáticas","Backup","Formatação"],a:1,tip:"Ela realiza cálculos e comparações."},
 
-{
-question: "A Unidade de Controle (UC) é responsável por:",
-options: ["Armazenar músicas", "Controlar e coordenar tarefas", "Imprimir dados", "Resfriar o computador"],
-answer: 1,
-tip: "Ela interpreta instruções e coordena ações."
-},
+{q:"Memória RAM é:",o:["Permanente","Somente leitura","Temporária e volátil","Externa"],a:2,tip:"Se desligar o computador, os dados são perdidos."},
 
-{
-question: "A ULA executa:",
-options: ["Operações aritméticas e lógicas", "Instalação de programas", "Formatação de HD", "Impressão"],
-answer: 0,
-tip: "Ela realiza cálculos como soma, comparação e lógica."
-},
+{q:"Memória ROM é:",o:["Volátil","Somente leitura e permanente","Temporária","Apagada ao desligar"],a:1,tip:"Ela já vem gravada de fábrica."},
 
-{
-question: "A memória RAM é:",
-options: ["Permanente", "Somente leitura", "Temporária e volátil", "Externa"],
-answer: 2,
-tip: "Se faltar energia, os dados da RAM são perdidos."
-},
+{q:"Memória secundária é exemplo:",o:["Processador","RAM","SSD","Placa mãe"],a:2,tip:"SSD e HD armazenam dados permanentemente."},
 
-{
-question: "A memória ROM é:",
-options: ["Volátil", "Somente leitura e permanente", "Temporária", "Apagada ao desligar"],
-answer: 1,
-tip: "Ela já vem gravada de fábrica."
-},
+{q:"Teclado é periférico de:",o:["Saída","Entrada","Memória","Processamento"],a:1,tip:"Ele envia dados ao computador."},
 
-{
-question: "Exemplo de memória secundária:",
-options: ["Processador", "RAM", "SSD", "Placa mãe"],
-answer: 2,
-tip: "SSD, HD e pendrive armazenam dados permanentemente."
-},
+{q:"Monitor é periférico de:",o:["Entrada","Saída","Processamento","Memória"],a:1,tip:"Ele exibe informações processadas."},
 
-{
-question: "Teclado e mouse são:",
-options: ["Periféricos de saída", "Periféricos de entrada", "Memórias", "Softwares"],
-answer: 1,
-tip: "Eles enviam dados para o computador."
-},
+{q:"Periféricos de entrada e saída incluem:",o:["Mouse","HD externo","Impressora","Placa mãe"],a:1,tip:"HD externo envia e recebe dados."},
 
-{
-question: "Monitor e impressora são:",
-options: ["Entrada", "Saída", "Memória", "Processador"],
-answer: 1,
-tip: "Eles mostram os resultados do processamento."
-},
+{q:"Software básico inclui:",o:["Jogos","Sistemas Operacionais","Planilhas","Antivírus"],a:1,tip:"Windows, Linux e Android são exemplos."},
 
-{
-question: "Software básico inclui:",
-options: ["Jogos", "Antivírus", "Sistemas Operacionais", "Planilhas"],
-answer: 2,
-tip: "Windows, Linux e Android são exemplos."
-},
+{q:"Software utilitário serve para:",o:["Gerenciar sistema e proteger","Criar hardware","Montar computador","Fabricar chips"],a:0,tip:"Antivírus e backup são utilitários."},
 
-{
-question: "Software utilitário inclui:",
-options: ["Sistema operacional", "Antivírus e backup", "Processador", "Monitor"],
-answer: 1,
-tip: "Utilitários ajudam na segurança e desempenho."
-},
+{q:"Software aplicativo é:",o:["Programa para tarefas específicas","Peça física","Memória","Processador"],a:0,tip:"Exemplo: Word, Excel, jogos."},
 
-{
-question: "Software aplicativo é:",
-options: ["Programa para tarefas específicas", "Peça física", "Memória", "CPU"],
-answer: 0,
-tip: "Exemplo: editores de texto, planilhas, jogos."
-},
+{q:"O sistema operacional é responsável por:",o:["Controlar recursos","Fabricar peças","Montar placas","Criar chips"],a:0,tip:"Ele gerencia memória, CPU e dispositivos."},
 
-{
-question: "O sistema operacional faz:",
-options: ["Apenas jogos", "Gerencia recursos e interação", "Só imprime", "Nada"],
-answer: 1,
-tip: "Ele controla memória, processador e dispositivos."
-},
+{q:"Sem software o computador seria:",o:["Mais rápido","Apenas peças eletrônicas","Um supercomputador","Um servidor"],a:1,tip:"Sem instruções ele não executa nada."},
 
-{
-question: "Sem software, o computador seria:",
-options: ["Mais rápido", "Apenas peças eletrônicas", "Um supercomputador", "Uma impressora"],
-answer: 1,
-tip: "Sem programas ele não executa tarefas."
-},
+{q:"Processador é exemplo de:",o:["Software","Hardware interno","Periférico externo","Aplicativo"],a:1,tip:"Fica dentro do gabinete."},
 
-{
-question: "Periféricos são:",
-options: ["Componentes internos apenas", "Dispositivos que comunicam com o exterior", "Programas", "Memórias"],
-answer: 1,
-tip: "Eles permitem interação entre usuário e máquina."
-},
+{q:"Impressora é:",o:["Hardware interno","Periférico de saída","Software utilitário","Memória"],a:1,tip:"Ela produz resultados físicos."},
 
-{
-question: "Hardware interno inclui:",
-options: ["Teclado", "Mouse", "Processador e memória", "Impressora"],
-answer: 2,
-tip: "São os componentes essenciais dentro do gabinete."
-}
+{q:"Antivírus é classificado como:",o:["Software básico","Software utilitário","Hardware","Firmware"],a:1,tip:"Protege o sistema contra ameaças."}
 
 ];
 
-const quizForm = document.getElementById("quizForm");
-const resultDiv = document.getElementById("result");
-const retryBtn = document.getElementById("retryBtn");
+let current=0;
+let answers=[];
 
-questions.forEach((q, index) => {
-    const div = document.createElement("div");
-    div.classList.add("question");
-    div.innerHTML = `<p><strong>${index + 1}. ${q.question}</strong></p>` +
-        q.options.map((opt, i) =>
-            `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label><br>`
-        ).join("");
-    quizForm.appendChild(div);
-});
+function load(){
+    document.getElementById("question").innerText=(current+1)+". "+questions[current].q;
+    const opt=document.getElementById("options");
+    opt.innerHTML="";
+    questions[current].o.forEach((op,i)=>{
+        opt.innerHTML+=`<label class="option"><input type="radio" name="op" value="${i}"> ${op}</label>`;
+    });
+    document.getElementById("progressBar").style.width=((current)/questions.length)*100+"%";
+}
 
-document.getElementById("submitBtn").addEventListener("click", function() {
+function next(){
+    const selected=document.querySelector('input[name="op"]:checked');
+    if(!selected){alert("Selecione uma opção.");return;}
+    answers[current]=parseInt(selected.value);
+    current++;
+    if(current<questions.length){
+        load();
+    }else{
+        showResult();
+    }
+}
 
-    let score = 0;
-    let feedback = "";
-
-    questions.forEach((q, index) => {
-        const selected = document.querySelector(`input[name="q${index}"]:checked`);
-        if (selected) {
-            if (parseInt(selected.value) === q.answer) {
-                score++;
-            } else {
-                feedback += `<p class="wrong">Questão ${index + 1}: ${q.tip}</p>`;
-            }
-        } else {
-            feedback += `<p class="wrong">Questão ${index + 1}: Não respondida. ${q.tip}</p>`;
+function showResult(){
+    let score=0;
+    let html="<h2>Resultado Final</h2><div class='result'>";
+    questions.forEach((q,i)=>{
+        if(answers[i]===q.a){
+            score++;
+            html+=`<p class='correct'><b>${i+1}) ${q.q}</b><br>Correta ✔</p>`;
+        }else{
+            html+=`<p class='wrong'><b>${i+1}) ${q.q}</b><br>Sua resposta: ${q.o[answers[i]]}<br>Correta: ${q.o[q.a]}<br>Dica: ${q.tip}</p>`;
         }
     });
+    let nota=((score/questions.length)*10).toFixed(1);
+    html+=`</div><h3>Acertos: ${score}/20</h3><h3>Nota: ${nota}</h3>`;
+    html+=`<button onclick="location.reload()">Tentar novamente</button>`;
+    document.getElementById("quizBox").innerHTML=html;
+}
 
-    resultDiv.innerHTML = `<p class="correct">Você acertou ${score} de ${questions.length} questões.</p>` + feedback;
-    retryBtn.style.display = "block";
-});
-
-retryBtn.addEventListener("click", function() {
-    location.reload();
-});
+load();
 
 </script>
-
 </body>
 </html>
