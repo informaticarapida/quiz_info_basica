@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz - História do Computador</title>
+<title>Quiz - Hardware x Software</title>
 
 <style>
 body{
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#1f3c88,#39a2db);
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#0f2027,#2c5364);
     margin:0;
     display:flex;
     justify-content:center;
@@ -17,16 +17,12 @@ body{
 }
 
 .container{
-    background:#fff;
+    background:white;
     width:90%;
     max-width:600px;
     padding:30px;
     border-radius:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
-}
-
-h2{
-    margin-bottom:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
 .option{
@@ -36,11 +32,6 @@ h2{
     border-radius:8px;
     border:1px solid #ccc;
     cursor:pointer;
-    transition:0.3s;
-}
-
-.option:hover{
-    background:#f1f1f1;
 }
 
 button{
@@ -48,19 +39,14 @@ button{
     padding:10px 20px;
     border:none;
     border-radius:8px;
-    background:#1f3c88;
+    background:#2c5364;
     color:white;
     font-size:16px;
     cursor:pointer;
 }
 
 button:hover{
-    background:#162d63;
-}
-
-.result{
-    max-height:400px;
-    overflow:auto;
+    background:#1c3b4a;
 }
 
 .correct{color:green;}
@@ -77,36 +63,36 @@ button:hover{
 
 <script>
 
-const questions = [
+const questions=[
 {
-q:"Quem é considerado o pai da informática?",
-o:["Bill Gates","Charles Babbage","Alan Turing","Steve Jobs"],
+q:"Hardware é:",
+o:["Programa","Equipamento físico","Aplicativo","Sistema"],
 a:1,
-tip:"Charles Babbage projetou a Máquina Analítica."
+tip:"Hardware é tudo que pode ser tocado."
 },
 {
-q:"A Primeira Geração utilizava:",
-o:["Transistores","Válvulas eletrônicas","Microprocessadores","Chips modernos"],
+q:"Software é:",
+o:["Peça física","Programa","Memória","Placa"],
 a:1,
-tip:"Eram enormes e esquentavam muito."
+tip:"Software são instruções que controlam o hardware."
 },
 {
-q:"A Segunda Geração utilizava:",
-o:["Circuitos integrados","Transistores","Válvulas","Pedras"],
+q:"A CPU é conhecida como:",
+o:["Memória","Cérebro do computador","HD","Monitor"],
 a:1,
-tip:"Substituíram as válvulas eletrônicas."
+tip:"Ela executa instruções e cálculos."
 },
 {
-q:"A Terceira Geração utilizava:",
-o:["Circuitos integrados","Transistores simples","Microprocessadores","Cartões"],
+q:"RAM é:",
+o:["Memória temporária","Memória permanente","HD","ROM"],
 a:0,
-tip:"Milhares de transistores em um único chip."
+tip:"Se desligar, perde os dados."
 },
 {
-q:"A Quarta Geração é marcada por:",
-o:["Pedras","Microprocessadores","Cartões perfurados","Válvulas"],
+q:"Sistema Operacional é um:",
+o:["Hardware","Software básico","Periférico","Memória"],
 a:1,
-tip:"Microprocessador é o cérebro do computador."
+tip:"Windows e Linux são exemplos."
 }
 ];
 
@@ -142,15 +128,12 @@ function showResults(){
     let score=0;
     let resultHTML="<h2>Resultado Final</h2>";
     questions.forEach((q,i)=>{
-        const correct=q.a;
-        const user=answers[i];
-        if(user===correct){
+        if(answers[i]===q.a){
             score++;
             resultHTML+=`<p class="correct">${i+1}) Correto ✔</p>`;
         }else{
             resultHTML+=`<p class="wrong">${i+1}) Errado ❌<br>
-            Sua resposta: ${q.o[user]}<br>
-            Correta: ${q.o[correct]}<br>
+            Correta: ${q.o[q.a]}<br>
             Dica: ${q.tip}</p>`;
         }
     });
